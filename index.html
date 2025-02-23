@@ -7,23 +7,64 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="flex-container">
-      <div class="book">
-        <div class="image">
-          <img src="images/de-men-phieu-luu-ky.png" alt="de-men-phieu-luu-ky" />
-        </div>
-        <div class="info">
-          <div>Author: <span></span></div>
-          <div>Title: <span></span></div>
-          <div>Language: <span></span></div>
-          <div>Number of pages: <span></span></div>
-          <div>
-            Status:
-            <button>Has not read</button>
-          </div>
-        </div>
+    <div class="flex-container js-flex-container">
+      <div title="Add new book" class="add-book card js-add-book">
+        <img class="add-icon" src="images/plus-solid.svg" />
       </div>
     </div>
+    <dialog class="modal" id="modal">
+      <form action="" method="dialog" class="add-book-form">
+        <div>
+          <label for="author">Author:</label>
+          <input type="text" id="author-input" />
+        </div>
+
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" id="title-input" />
+        </div>
+
+        <div>
+          <label for="language">Language:</label>
+          <select name="language" id="language-input">
+            <option value="1">Vietnamese</option>
+            <option value="2">English</option>
+            <option value="3">French</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="number-of-pages">Number of pages:</label>
+          <input type="number" id="number-of-pages-input" min="0" max="10000" />
+        </div>
+
+        <div>
+          <label for="image-url">Image-url</label>
+          <input type="text" id="image-url-input" />
+        </div>
+
+        <div class="status">
+          Status:
+          <div>
+            <label for="has-read">Has read</label>
+            <input type="radio" name="status-input" id="has-read" value="1" />
+          </div>
+          <div>
+            <label for="has-not-read">Has not read</label>
+            <input
+              type="radio"
+              name="status-input"
+              id="has-not-read"
+              value="0"
+              checked
+            />
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="submit-button">Submit</button>
+        </div>
+      </form>
+    </dialog>
     <script src="script.js"></script>
   </body>
 </html>

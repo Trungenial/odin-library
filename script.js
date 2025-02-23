@@ -1,53 +1,19 @@
-const library = [
-  {
-    image_url: "images/de-men-phieu-luu-ky.png",
-    author: "Tô Hoài",
-    title: "Dế mèn phiêu lưu ký",
-    language: "Vietnamese",
-    numberOfPages: 100,
-    hasBeenRead: false,
-  },
-  {
-    image_url: "images/de-men-phieu-luu-ky.png",
-    author: "Tô Hoài",
-    title: "Dế mèn phiêu lưu ký",
-    language: "Vietnamese",
-    numberOfPages: 100,
-    hasBeenRead: false,
-  },
-  {
-    image_url: "images/de-men-phieu-luu-ky.png",
-    author: "Tô Hoài",
-    title: "Dế mèn phiêu lưu ký",
-    language: "Vietnamese",
-    numberOfPages: 100,
-    hasBeenRead: false,
-  },
-  {
-    image_url: "images/de-men-phieu-luu-ky.png",
-    author: "Tô Hoài",
-    title: "Dế mèn phiêu lưu ký",
-    language: "Vietnamese",
-    numberOfPages: 100,
-    hasBeenRead: false,
-  },
-];
+const library = [];
 
 //insert details of a book to a book card.
 function insertBookDetail(bookBox, book) {
   bookBox.innerHTML = `
   <div class="image">
-    <img src="${book.image_url}" alt="${book.image_url.slice(
-    7,
-    book.image_url.length - 4
-  )}" />
+    <img src="${book.imageUrl}" alt="${book.title}" />
   </div>
   <div class="info">
-    <div>Author: <span>${book.author}</span></div>
-    <div>Title: <span>${book.title}</span></div>
-    <div>Language: <span>${book.language}</span></div>
-    <div>Number of pages: <span>${book.numberOfPages}</span></div>
-    <div>
+    <div id="author">Author: <span>${book.author}</span></div>
+    <div id="title">Title: <span>${book.title}</span></div>
+    <div id="language">Language: <span>${book.language}</span></div>
+    <div id="number-of-pages">Number of pages: <span>${
+      book.numberOfPages
+    }</span></div>
+    <div id="status">
       Status:
       <button>${
         book.hasBeenRead === false ? "Has not read" : "Has read"
@@ -56,17 +22,84 @@ function insertBookDetail(bookBox, book) {
   </div>`;
 }
 
+function addBookHandler() {
+  addBox.addEventListener("click", (event) => {
+    event.preventDefault();
+    modal.showModal();
+  });
+}
+
+const addBox = document.querySelector(".js-add-book");
+const modal = document.querySelector("#modal");
+const container = document.querySelector(".js-flex-container");
+const submitButton = document.querySelector(".submit-button");
+
+addBookHandler();
+
 // Display all books that we have on screen.
 function displayBooks(library) {
-  const container = document.querySelector(".flex-container");
+  // loops through all books in the library and display them on screen before add button
 
-  // loops through all books in the library and display them on screen
+  container.innerHTML = "";
+
+  container.appendChild(addBox);
+
   library.forEach((book) => {
     const bookBox = document.createElement("div");
-    bookBox.classList.add("book");
+    bookBox.classList.add("card", "js-book");
     insertBookDetail(bookBox, book);
-    container.appendChild(bookBox);
+    container.insertBefore(bookBox, addBox);
   });
 }
 
 displayBooks(library);
+
+function Book(author, title, language, numberOfPages, status, imageUrl) {
+  this.author = author;
+  this.title = title;
+  this.language = language;
+  this.numberOfPages = numberOfPages;
+  this.status = status;
+  this.imageUrl = imageUrl;
+}
+
+function addBookToLibrary(
+  author,
+  title,
+  language,
+  numberOfPages,
+  status,
+  imageUrl
+) {
+  const book = new Book(
+    author,
+    title,
+    language,
+    numberOfPages,
+    status,
+    imageUrl
+  );
+  library.push(book);
+}
+
+function submitButtonHandler() {
+  submitButton.addEventListener("click", () => {
+    const author = document.querySelector("#author-input").value;
+    const title = document.querySelector("#title-input").value;
+    const language = document.querySelector("#language-input").value;
+    const numberOfPages = document.querySelector(
+      "#number-of-pages-input"
+    ).value;
+    const status = document.querySelector(
+      'input[name="status-input"]:checked'
+    ).value;
+    const imageUrl = document.querySelector("#image-url-input").value;
+
+    addBookToLibrary(author, title, language, numberOfPages, status, imageUrl);
+
+    displayBooks(library);
+  });
+  modal.close(); // close modal
+}
+
+submitButtonHandler();

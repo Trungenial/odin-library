@@ -17,22 +17,26 @@
 /* || BLOCKS */
 .flex-container {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   gap: 10px;
   max-width: 90%;
   margin: 0 auto;
+  flex-wrap: wrap;
 }
 
-.book {
+.card {
   max-width: 200px;
+  min-width: 100px;
+  width: clamp(100px, 250px, 300px);
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(212, 179, 179, 0.673);
   padding: 5px;
 }
 
-.book img {
-  max-width: 100%;
-  max-height: 286px;
+.card img {
+  width: 100%;
+  max-height: 271.4px;
+
   object-fit: cover;
   object-position: center;
 }
@@ -54,6 +58,81 @@
   background-color: rgb(229, 172, 172);
   border-radius: 2px;
   padding: 2px;
+  cursor: pointer;
+}
+
+.add-book {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.add-book img {
+  width: 100%;
+}
+
+.modal {
+  position: sticky;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(300px, 700px, 900px);
+  height: clamp(300px, 600px, 900px);
+}
+
+.modal::backdrop {
+  background-color: #a7909096;
+}
+.add-book-form {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.add-book-form > div {
+  padding: 0 20px 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.add-book-form input,
+.add-book-form select {
+  border: 2px solid black;
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
+
+.add-book-form input[type="text"] {
+  min-width: 70%;
+}
+
+.status {
+  gap: 10px;
+}
+
+.status label {
+  font-size: 1.3rem;
+  margin-right: -15px;
+}
+
+.status label[for="has-read"] {
+  color: green;
+}
+
+.status label[for="has-not-read"] {
+  color: red;
+}
+
+.submit-button {
+  border: none;
+  padding: 20px;
+  width: 100%;
+  background-color: rgb(35, 112, 35);
+  font-weight: 700;
+  margin: 50px auto;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
