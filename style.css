@@ -25,8 +25,8 @@
 }
 
 .card {
-  max-width: 200px;
-  min-width: 100px;
+  max-width: 400px;
+  min-width: 200px;
   width: clamp(100px, 250px, 300px);
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(212, 179, 179, 0.673);
@@ -35,7 +35,7 @@
 
 .card img {
   width: 100%;
-  max-height: 271.4px;
+  /* max-height: 271.4px; */
 
   object-fit: cover;
   object-position: center;
@@ -45,6 +45,8 @@
   text-align: left;
   font-weight: 600;
   font-size: 1rem;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .info > div:last-child {
@@ -59,6 +61,14 @@
   border-radius: 2px;
   padding: 2px;
   cursor: pointer;
+}
+
+.trash-box {
+  margin-left: auto;
+}
+
+.trash-icon {
+  max-width: 10px;
 }
 
 .add-book {

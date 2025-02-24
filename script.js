@@ -1,7 +1,7 @@
 const library = [];
 
 //insert details of a book to a book card.
-function insertBookDetail(bookBox, book) {
+function insertBookDetail(bookBox, book, bookIndex) {
   bookBox.innerHTML = `
   <div class="image">
     <img src="${book.imageUrl}" alt="${book.title}" />
@@ -18,6 +18,7 @@ function insertBookDetail(bookBox, book) {
       <button>${
         book.hasBeenRead === false ? "Has not read" : "Has read"
       }</button>
+      <button class="trash-box js-trash-box" data-book-index="${bookIndex}"><img src="images/trash-solid.svg" class="trash-icon"></button>
     </div>
   </div>`;
 }
@@ -44,12 +45,14 @@ function displayBooks(library) {
 
   container.appendChild(addBox);
 
-  library.forEach((book) => {
+  library.forEach((book, bookIndex) => {
     const bookBox = document.createElement("div");
     bookBox.classList.add("card", "js-book");
-    insertBookDetail(bookBox, book);
-    container.insertBefore(bookBox, addBox);
+    insertBookDetail(bookBox, book, bookIndex);
+    container.append(bookBox);
   });
+
+  setDeleteBookButton();
 }
 
 displayBooks(library);
@@ -103,3 +106,25 @@ function submitButtonHandler() {
 }
 
 submitButtonHandler();
+
+function setDeleteBookButton() {
+  const deleteButtons = document.querySelectorAll(".js-trash-box");
+
+  deleteButtons.forEach((deleteButton) => {
+    deleteButton.addEventListener("click", () => {
+      const bookIndex = deleteButton.dataset.bookIndex;
+      console.log(deleteButton);
+      console.log(deleteButton.dataset.bookIndex);
+      removeItemInArray(library, bookIndex);
+      displayBooks(library);
+    });
+  });
+}
+
+function removeItemInArray(array, index) {
+  parseIntIndex = parseInt(index);
+
+  if (parseIntIndex !== -1) {
+    array.splice(parseIntIndex, 1);
+  }
+}
